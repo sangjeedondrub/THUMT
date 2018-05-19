@@ -7,6 +7,8 @@ from __future__ import print_function
 
 import tensorflow as tf
 
+from thumt.utils.utils import bytes_to_str as to_str
+
 
 def load_vocabulary(filename):
     vocab = []
@@ -30,7 +32,7 @@ def get_control_mapping(vocab, symbols):
 
     for i, token in enumerate(vocab):
         for symbol in symbols:
-            if symbol.decode("utf-8") == token.decode("utf-8"):
+            if to_str(symbol) == to_str(token):
                 mapping[symbol] = i
 
     return mapping

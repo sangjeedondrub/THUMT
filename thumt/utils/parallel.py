@@ -7,6 +7,8 @@ from __future__ import print_function
 
 import operator
 
+import six
+
 import tensorflow as tf
 
 
@@ -66,7 +68,7 @@ def data_parallelism(devices, fn, *args, **kwargs):
 
     new_kwargs = [{} for _ in range(num_worker)]
 
-    for k, v in kwargs.iteritems():
+    for k, v in six.iteritems(kwargs):
         vals = _maybe_repeat(v, num_worker)
 
         for i in range(num_worker):
@@ -97,7 +99,7 @@ def shard_features(features, device_list):
 
     sharded_features = {}
 
-    for k, v in features.iteritems():
+    for k, v in six.iteritems(features):
         v = tf.convert_to_tensor(v)
         if not v.shape.as_list():
             v = tf.expand_dims(v, axis=-1)
@@ -109,7 +111,7 @@ def shard_features(features, device_list):
 
     for d in range(num_datashards):
         feat = {
-            k: v[d] for k, v in sharded_features.iteritems()
+            k: v[d] for k, v in six.iteritems(sharded_features)
         }
         datashard_to_features.append(feat)
 

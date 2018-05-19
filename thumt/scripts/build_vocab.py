@@ -32,8 +32,10 @@ def control_symbols(string):
 
 
 def save_vocab(name, vocab):
+    # vocab files not necessarily end with a txt extension
     if name.split(".")[-1] != "txt":
-        name = name + ".txt"
+        #name = name + ".txt"
+        pass
 
     pairs = sorted(vocab.items(), key=lambda x: (x[1], x[0]))
     words, ids = list(zip(*pairs))

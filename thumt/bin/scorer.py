@@ -10,6 +10,8 @@ import argparse
 import itertools
 import os
 
+import six
+
 import tensorflow as tf
 import thumt.data.vocab as vocabulary
 import thumt.models as models
@@ -64,12 +66,12 @@ def default_parameters():
 def merge_parameters(params1, params2):
     params = tf.contrib.training.HParams()
 
-    for (k, v) in params1.values().iteritems():
+    for (k, v) in six.iteritems(params1.values()):
         params.add_hparam(k, v)
 
     params_dict = params.values()
 
-    for (k, v) in params2.values().iteritems():
+    for (k, v) in six.iteritems(params2.values()):
         if k in params_dict:
             # Override
             setattr(params, k, v)

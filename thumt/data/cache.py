@@ -5,6 +5,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import six
+
 import tensorflow as tf
 
 
@@ -21,7 +23,7 @@ def cache_features(features, num_shards):
     flat_feature = queue.dequeue()
     new_features = {}
 
-    for k, v in zip(features.iterkeys(), flat_feature):
+    for k, v in zip(six.iterkeys(features), flat_feature):
         v.set_shape(features[k].shape)
         new_features[k] = v
 
